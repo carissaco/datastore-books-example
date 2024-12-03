@@ -39,6 +39,16 @@ public class BookController {
     books.forEach(bookList::add);
     return bookList;
   }
+
+  @GetMapping("/chat")
+  @ResponseBody
+  @CrossOrigin(origins = "*")
+  public String chat(@RequestParam String title) {
+  	
+
+
+    return title;
+  }
   
 
   @GetMapping("/findAllBooks")
@@ -57,4 +67,14 @@ public class BookController {
     return books.toString();
     
   } */
+
+ @GetMapping("/findByYear")
+  @ResponseBody
+  @CrossOrigin(origins = "*")
+  public List<Book> findByYear(@RequestParam String year) {
+  	Iterable<Book> books = this.bookRepository.findByYear(Integer.parseInt(year));
+    List<Book> bookList = new ArrayList<>();
+    books.forEach(bookList::add);
+    return bookList;
+  }
 }
