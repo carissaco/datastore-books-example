@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
+import ai.peoplecode.OpenAIConversation;
 
 @RestController
 public class BookController {
   private final BookRepository bookRepository;
+  private static String context;
+  private static OpenAIConversation conversation = new OpenAIConversation("demo", "gpt-4o-mini");
 
   public BookController(BookRepository bookRepository) {
     this.bookRepository = bookRepository;
@@ -44,10 +47,10 @@ public class BookController {
   @ResponseBody
   @CrossOrigin(origins = "*")
   public String chat(@RequestParam String title) {
-  	
 
+     String mathQuestion = conversation.askQuestion("Respond in json format", "Give me a math word problem involving " + title);
 
-    return title;
+    return mathQuestion;
   }
   
 
